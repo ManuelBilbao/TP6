@@ -3,38 +3,41 @@
 
 using namespace std;
 
-void generar_random(list<Nodo> vecinos[]) {
-	vecinos[0].push_back(Nodo(4, 4));
-	vecinos[2].push_back(Nodo(5, 9));
-	vecinos[2].push_back(Nodo(1, 5));
-	vecinos[4].push_back(Nodo(6, 3));
-	vecinos[4].push_back(Nodo(7, 1));
-	vecinos[5].push_back(Nodo(1, 2));
-	vecinos[5].push_back(Nodo(3, 7));
-	vecinos[5].push_back(Nodo(6, 8));
-	vecinos[5].push_back(Nodo(7, 4));
-	vecinos[6].push_back(Nodo(2, 5));
-	vecinos[6].push_back(Nodo(4, 3));
-	vecinos[7].push_back(Nodo(5, 9));
-	vecinos[7].push_back(Nodo(6, 8));
+void generar_random(list<Arista> vecino[]) {
+	vecino[0].push_back(Arista(1, 8));
+	vecino[0].push_back(Arista(4, 6));
+	vecino[1].push_back(Arista(3, 8));
+	vecino[1].push_back(Arista(5, 2));
+	vecino[1].push_back(Arista(6, 9));
+	vecino[2].push_back(Arista(0, 2));
+	vecino[2].push_back(Arista(5, 8));
+	vecino[4].push_back(Arista(2, 5));
+	vecino[4].push_back(Arista(6, 5));
+	vecino[5].push_back(Arista(3, 1));
+	vecino[6].push_back(Arista(2, 5));
+	vecino[7].push_back(Arista(6, 9));
 }
 
 Grafo::Grafo() {
 	this->cantidad = VERTICES;
-	generar_random(this->vecinos);
+	generar_random(this->vecino);
 }
 
 int Grafo::obtener_cantidad() {
 	return this->cantidad;
 }
 
-list<Nodo> Grafo::obtener_vecinos(int i) {
-	return this->vecinos[i];
+list<Arista> Grafo::obtener_vecino(int i) {
+	return this->vecino[i];
+}
+
+Vertice Grafo::obtener_vertice(int i) {
+	return this->vertice[i];
 }
 
 void Grafo::mostrar() {
-	for (int i = 0; i < VERTICES; i++) {
-		for (std::list<Nodo>::iterator j = this->vecinos[i].begin(); j != this->vecinos[i].end(); j++) {
+	for (int i = 0; i < this->cantidad; i++) {
+		for (std::list<Arista>::iterator j = this->vecino[i].begin(); j != this->vecino[i].end(); j++) {
 			cout << "El nodo " << i << " apunta a " << (*j).first << " con peso " << (*j).second << endl;
 		}
 	}

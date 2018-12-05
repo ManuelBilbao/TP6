@@ -1,20 +1,30 @@
+#ifndef GRAFO_H
+#define GRAFO_H
+
 #include <list>
+#include <string>
+#include "aeropuerto.h"
+#include "vertice.h"
 
 const int MAX = 200;
 const int VERTICES = 8;
 
-#define Nodo pair<int, int>
-
 using namespace std;
+
+#define Arista pair<int, int>
 
 class Grafo {
 	private:
 		int cantidad;
-		list<Nodo> vecinos[MAX];
+		list<Arista> vecino[MAX];
+		Vertice vertice[MAX];
 
 	public:
 		Grafo();
 		int obtener_cantidad();
-		list<Nodo> obtener_vecinos(int i);
+		list<Arista> obtener_vecino(int i);
+		Vertice obtener_vertice(int i);
 		void mostrar();
 };
+
+#endif
