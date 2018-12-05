@@ -170,10 +170,14 @@ void pasar_datos(Grafo &grafo, string linea_leida) {
 	int indice_partida = grafo.obtener_indice(codigo_IATA_partida);
 	if (indice_partida == -1) // Si no existe el aeropuerto
 		indice_partida = grafo.agregar_aeropuerto(datos_aeropuerto_partida);
+	else
+		delete datos_aeropuerto_partida;
 
 	int indice_destino = grafo.obtener_indice(codigo_IATA_destino);
 	if (indice_destino == -1) // Si no existe el aeropuerto
 		indice_destino = grafo.agregar_aeropuerto(datos_aeropuerto_destino);
+	else
+		delete datos_aeropuerto_destino;
 
   grafo.agregar_viaje(indice_partida, indice_destino, costo_vuelo);
 

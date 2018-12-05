@@ -48,8 +48,6 @@ class Aeropuerto {
 		//pos: obtiene el nombre del pais del aeropuerto
 		string obtener_pais();
 
-		// ~Aeropuerto();
-
 };
 
 #endif

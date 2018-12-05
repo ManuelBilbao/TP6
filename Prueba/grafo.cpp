@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 Grafo::Grafo() {
 	this->cantidad = 0;
 }
@@ -63,6 +62,6 @@ void Grafo::mostrar_aeropuertos() {
 
 Grafo::~Grafo() {
 	for (int i = 0; i < this->cantidad; i++) {
-		delete aeropuerto[i];
+		delete this->aeropuerto[i];
 	}
 }
