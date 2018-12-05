@@ -6,7 +6,8 @@
 
 using namespace std;
 
-
+// pre: -
+// post: maneja el flujo del programa
 int main() {
 	Grafo grafo = Grafo();
 

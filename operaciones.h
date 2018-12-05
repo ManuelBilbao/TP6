@@ -14,20 +14,22 @@ using namespace std;
 const int MINIMO_NUMERO_MENU = 1;
 const int MAXIMO_NUMERO_MENU = 4;
 
-//Pre: necesita un arbol binario previamente cargado
-//Pos: devuelve los datos del aeropuerto pedido
+//Pre: necesita un Grafo previamente cargado
+//Pos: solicita al usuario el codigo del aeropuerto del que parte y el
+//aeropuerto al que ariba e imprime por pantalla las conexiones nesesarias para
+//obtener el viaje menos costoso, en caso de un error se lo informa al usuario
 void consultar_viaje(Grafo &grafo);
 
-//Pre: necesita un arbol binario previamente cargado
-//Pos: lista todos los aeropuertos en orden alfabetico
+//Pre: necesita un Grafo previamente cargado
+//Pos: lista todas las combinaciones que hay en el grafo
 void listar_combinaciones(Grafo &grafo);
 
-//Pre: necesita un arbol binario creado y un archivo aeropuertos.txt previamente cargado y bien formado
-//Pos: devuelve el arbol completamente cargado con los datos de un archivo
+//Pre: nnecesita un Grafo previamente cargado y un archivo vuelos.txt previamente cargado y bien formado
+//Pos: devuelve el Grafo completamente cargado con los datos de un archivo
 void cargar_grafo(Grafo &grafo);
 
-//Pre: necesita un string que tenga una linea del archivo aeropuertos.txt
-//Pos: devuelve el dato le
+//Pre: necesita un string que tenga una linea del archivo vuelos.txt
+//Pos: devuelve el dato leeido
 void pasar_datos(Grafo &grafo, string linea_leida);
 
 //Pre: necesita la posicion de inicio de lectura y el char donde dejar de leer ambos validos
