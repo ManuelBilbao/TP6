@@ -124,7 +124,7 @@ int obtener_dato(string linea_leida, int &posicion_inicio, char final_lectura) {
 
 	int contador = 0;
 	string dato_leido;
-	double medida_leida;
+	int medida_leida;
 
 	while(linea_leida[posicion_inicio] != final_lectura){
 
@@ -155,7 +155,7 @@ void pasar_datos(Grafo &grafo, string linea_leida) {
 	string nombre_aeropuerto_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
 	string ciudad_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
 	string pais_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
-	int costo_vuelo = (int)obtener_dato(linea_leida, posicion_inicio, FIN_LINEA);
+	int costo_vuelo = obtener_dato(linea_leida, posicion_inicio, FIN_LINEA);
 
 	datos_aeropuerto_partida->asignar_codigo_IATA(codigo_IATA_partida);
 	datos_aeropuerto_partida->asignar_nombre_aeropuerto(nombre_aeropuerto_partida);

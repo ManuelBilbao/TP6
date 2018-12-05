@@ -47,12 +47,12 @@ void actualizar_vecinos(Grafo &grafo, int index, int costo[], bool visitado[], i
 
 void mostrar_pasos(Grafo &grafo, int costo[], int previo[], int cantidad, int destino) {
 	int i = previo[destino];
-	cout << "Partida  Llegada  Precio" << endl;
 	if (i == -1) {
 		cout << grafo.obtener_aeropuerto(destino)->obtener_codigo_IATA() << " $" << costo[destino] << endl;
 		return;
 	}
 
+	cout << "Partida  Llegada  Precio" << endl;
 	cout << "  " << grafo.obtener_aeropuerto(i)->obtener_codigo_IATA() << "      " << grafo.obtener_aeropuerto(destino)->obtener_codigo_IATA() << "    " << " $" << costo[destino] - costo[i] << endl;
 	while (previo[i] != -1) {
 		cout << "  " << grafo.obtener_aeropuerto(previo[i])->obtener_codigo_IATA() << "      " << grafo.obtener_aeropuerto(i)->obtener_codigo_IATA() << "    " << " $" << costo[i] - costo[previo[i]] << endl;
