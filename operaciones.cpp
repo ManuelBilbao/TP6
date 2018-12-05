@@ -188,7 +188,7 @@ void cargar_grafo(Grafo &grafo) {
 
 	ifstream archivo;
 	string linea_leida;
-	archivo.open("aeropuertos.txt");
+	archivo.open("vuelos.txt");
 
 	getline(archivo, linea_leida);
 
