@@ -130,10 +130,12 @@ int obtener_dato(string linea_leida, int &posicion_inicio, char final_lectura) {
 
 }
 
-void pasar_datos(string linea_leida /*,BST* arbol*/) {
+void pasar_datos(Grafo &grafo, string linea_leida) {
 
 	int posicion_inicio = 0;
-	//Aeropuerto* datos_aeropuerto = new Aeropuerto();
+	Aeropuerto* datos_aeropuerto_partida = new Aeropuerto();
+	Aeropuerto* datos_aeropuerto_destino = new Aeropuerto();
+
 
 	string codigo_IATA_partida = obtener_palabra(linea_leida, posicion_inicio, ' ');
 	string nombre_aeropuerto_partida = obtener_palabra(linea_leida, posicion_inicio, ' ');
@@ -143,12 +145,12 @@ void pasar_datos(string linea_leida /*,BST* arbol*/) {
 	string nombre_aeropuerto_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
 	string ciudad_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
 	string pais_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
-//	int costo_vuelo = (int)obtener_dato(linea_leida, posicion_inicio, '\0');
+	int costo_vuelo = (int)obtener_dato(linea_leida, posicion_inicio, '\0');
 
-	//datos_aeropuerto->asignar_nombre_aeropuerto(nombre_aeropuerto_partida, nombre_aeropuerto_destino);
-	//datos_aeropuerto->asignar_nombre_ciudad(ciudad_partida, ciudad_destino);
-	//datos_aeropuerto->asignar_pais(pais_partida, pais_destino);
-	//datos_aeropuerto->asignar_costo(costo_vuelo);
+	datos_aeropuerto->asignar_nombre_aeropuerto(nombre_aeropuerto_partida);
+	datos_aeropuerto->asignar_nombre_ciudad(ciudad_partida);
+	datos_aeropuerto->asignar_pais(pais_partida);
+	datos_aeropuerto->asignar_costo(costo_vuelo);
 
 	//arbol->add(codigo, datos_aeropuerto);
 

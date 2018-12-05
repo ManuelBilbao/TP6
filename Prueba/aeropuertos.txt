@@ -1,0 +1,13 @@
+EZE Aeropuerto-Internacional-Ministro-Pistarini Buenos-Aires Argentina LAX Aeropuerto-Internacional-de-losAngeles Los-Angeles EEUU 9000
+FCO Aeropuerto-de-Roma-Fiumicino Roma Italia TXL Otto-Lilielenthal Berlin Alemania 400
+EZE Aeropuerto-Internacional-Ministro-Pistarini Buenos-Aires Argentina GRU Aeropuerto-Internacional-de-São-Paulo São-Paulo Brasil 2750
+GRU Aeropuerto-Internacional-de-São-Paulo São-Paulo Brasil EZE Aeropuerto-Internacional-Ministro-Pistarini Buenos-Aires Argentina 3000
+GRU Aeropuerto-Internacional-de-São-Paulo São-Paulo Brasil FCO Aeropuerto-de-Roma-Fiumicino Roma Italia 1000
+EZE Aeropuerto-Internacional-Ministro-Pistarini Buenos-Aires Argentina BER Aeropuerto-de-Berlín Berlín Alemania 10000
+EZE Aeropuerto-Internacional-Ministro-Pistarini Buenos-Aires Argentina FCO Aeropuerto-de-Roma-Fiumicino Roma Italia 4000
+FCO Aeropuerto-de-Roma-Fiumicino Roma Italia EZE Aeropuerto-Internacional-Ministro-Pistarini Buenos-Aires Argentina 4000
+FCO Aeropuerto-de-Roma-Fiumicino Roma Italia BER Aeropuerto-de-Berlín Berlín Alemania 300
+BER Aeropuerto-de-Berlín Berlín Alemania FCO Aeropuerto-de-Roma-Fiumicino Roma Italia 500
+NRT Aeropuerto-Internacional-de-Narita Tokio Japon BER Aeropuerto-de-Berlín Berlín Alemania 2000
+BER Aeropuerto-de-Berlín Berlín Alemania NRT Aeropuerto-Internacional-de-Narita Tokio Japon 2000
+NRT Aeropuerto-Internacional-de-Narita Tokio Japon FCO Aeropuerto-de-Roma-Fiumicino Roma Italia 1800

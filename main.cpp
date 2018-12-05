@@ -2,16 +2,12 @@
 #include "operaciones.h"
 
 
-const int MINIMO_NUMERO_MENU = 1;
-const int MAXIMO_NUMERO_MENU = 5;
-
-
 //Pre: -
 //Pos: Maneja el flujo de programa
 int main() {
-	//Grafo grafo;
+	Grafo grafo;
 	bool sigue_programa = true;
-	cargar_grafo(/*&grafo*/);
+	cargar_grafo(&grafo);
 	system("clear");
 	while(sigue_programa){
 
@@ -20,10 +16,10 @@ int main() {
 
 		switch (opcion_pedida) {
 			case 1:
-				consultar_viaje();
+				consultar_viaje(&grafo);
 				break;
 			case 2:
-				listar_convinaciones();
+				listar_convinaciones(&grafo);
 				break;
 			default:
 				sigue_programa = false;

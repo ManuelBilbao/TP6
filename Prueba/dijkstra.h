@@ -8,6 +8,6 @@ const int INF = 1<<30;
 
 using namespace std;
 
-int buscar_menor_camino(Grafo grafo, int inicio, int destino);
+int buscar_menor_camino(Grafo &grafo, int inicio, int destino);
 
 #endif
