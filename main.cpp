@@ -1,31 +1,37 @@
-//#include "grafo.h"
+#include <iostream>
+#include <string>
+#include "grafo.h"
+#include "dijkstra.h"
 #include "operaciones.h"
 
+using namespace std;
 
-//Pre: -
-//Pos: Maneja el flujo de programa
+
 int main() {
-	Grafo grafo;
-	bool sigue_programa = true;
-	cargar_grafo(&grafo);
-	system("clear");
-	while(sigue_programa){
+	Grafo grafo = Grafo();
 
+	cargar_grafo(grafo);
+	system("clear");
+
+	bool sigue_programa = true;
+	while (sigue_programa) {
 		mostrar_menu();
 		int opcion_pedida = pedir_opcion();
 
 		switch (opcion_pedida) {
 			case 1:
-				consultar_viaje(&grafo);
+				consultar_viaje(grafo);
 				break;
 			case 2:
-				listar_convinaciones(&grafo);
+				listar_combinaciones(grafo);
+				break;
+			case 3:
+				grafo.mostrar_aeropuertos();
 				break;
 			default:
 				sigue_programa = false;
-
 		}
 	}
 
-	return EXIT_SUCCESS;
+	return 0;
 }

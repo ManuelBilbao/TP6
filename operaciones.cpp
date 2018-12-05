@@ -1,45 +1,56 @@
 #include "operaciones.h"
-
+#include "dijkstra.h"
 
 using namespace std;
-const int MINIMO_NUMERO_MENU = 1;
-const int MAXIMO_NUMERO_MENU = 5;
+const char FIN_LINEA = '\0';
+const char FIN_PALABRA = ' ';
 
 string pedir_palabra(string campo);
-string pedir_codigo();
+string pedir_codigo(string mensaje);
 double pedir_numero(string campo);
 
-void consultar_viaje(/*Grafo* grafo*/) {
-	cout << "hola";
-	/*
+void consultar_viaje(Grafo &grafo) {
+
 	system("clear");
 
-	string codigo = pedir_codigo();
-	Node* buscado = arbol->search(codigo);
+	string codigo = pedir_codigo(" del aeropuerto de partida");
+	int indice = grafo.obtener_indice(codigo);
 
-	if (!buscado) {
+	if (indice == -1) {
 
 		cout << "No se encontro el aeropuerto" << endl;
 		return;
 
 	}
 
-	cout << "Nombre: " << buscado->datos_aeropuerto->obtener_nombre_aeropuerto() << endl;
-	cout << "Ciudad: " << buscado->datos_aeropuerto->obtener_nombre_ciudad() << endl;
-	cout << "Pais: " << buscado->datos_aeropuerto->obtener_pais() << endl;
-	cout << "Superficie: " << buscado->datos_aeropuerto->obtener_superficie() << endl;
-	cout << "Terminales: " << buscado->datos_aeropuerto->obtener_cantidad_terminales() << endl;
-	cout << "Destinos nacionales: " << buscado->datos_aeropuerto->obtener_destinos_nacionales() << endl;
-	cout << "Destinos internacionales: " << buscado->datos_aeropuerto->obtener_destinos_internacionales() << endl;
-   */
+	string codigo_destino = pedir_codigo(" del aeropuerto de llegada");
+	int indice_destino = grafo.obtener_indice(codigo_destino);
+
+	if (indice_destino == -1) {
+
+		cout << "No se encontro el aeropuerto" << endl;
+		return;
+
+	}
+
+	cout << "Listando escalas del vuelo de menor costo: " << endl;
+
+	int costo = buscar_menor_camino(grafo, indice, indice_destino);
+
+	if (costo != -1) {
+		cout << "El costo final de este vuelo es: $" << costo << endl;
+	} else {
+		cout << "No existe un viaje posible" << endl;
+	}
+
 }
 
-void listar_convinaciones(/*Grafo* grafo*/) {
+void listar_combinaciones(Grafo &grafo) {
 
 	system("clear");
 
-	cout << "Listado de aeropuertos:" << endl;
-	//arbol->print();
+	cout << "Listado de vuelos:" << endl;
+	grafo.mostrar();
 
 }
 
@@ -73,17 +84,16 @@ double pedir_numero(string campo) {
 	return numero;
 }
 
-string pedir_codigo() {
+string pedir_codigo(string mensaje) {
 
 	string codigo;
-	cout << "Codigo IATA: ";
-	cin.ignore();
-	getline(cin, codigo);
+	cout << "Codigo IATA" << mensaje << ": ";
+	cin >> codigo;
 
 	if (codigo.length() != 3) {
 
 		cout << "El codigo debe tener 3 cifras" << endl;
-		return pedir_codigo();
+		return pedir_codigo(mensaje);
 
 	}
 
@@ -114,7 +124,7 @@ int obtener_dato(string linea_leida, int &posicion_inicio, char final_lectura) {
 
 	int contador = 0;
 	string dato_leido;
-	double medida_leida;
+	int medida_leida;
 
 	while(linea_leida[posicion_inicio] != final_lectura){
 
@@ -137,27 +147,44 @@ void pasar_datos(Grafo &grafo, string linea_leida) {
 	Aeropuerto* datos_aeropuerto_destino = new Aeropuerto();
 
 
-	string codigo_IATA_partida = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string nombre_aeropuerto_partida = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string ciudad_partida = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string pais_partida = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string codigo_IATA_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string nombre_aeropuerto_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string ciudad_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	string pais_destino = obtener_palabra(linea_leida, posicion_inicio, ' ');
-	int costo_vuelo = (int)obtener_dato(linea_leida, posicion_inicio, '\0');
+	string codigo_IATA_partida = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string nombre_aeropuerto_partida = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string ciudad_partida = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string pais_partida = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string codigo_IATA_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string nombre_aeropuerto_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string ciudad_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	string pais_destino = obtener_palabra(linea_leida, posicion_inicio, FIN_PALABRA);
+	int costo_vuelo = obtener_dato(linea_leida, posicion_inicio, FIN_LINEA);
 
-	datos_aeropuerto->asignar_nombre_aeropuerto(nombre_aeropuerto_partida);
-	datos_aeropuerto->asignar_nombre_ciudad(ciudad_partida);
-	datos_aeropuerto->asignar_pais(pais_partida);
-	datos_aeropuerto->asignar_costo(costo_vuelo);
+	datos_aeropuerto_partida->asignar_codigo_IATA(codigo_IATA_partida);
+	datos_aeropuerto_partida->asignar_nombre_aeropuerto(nombre_aeropuerto_partida);
+	datos_aeropuerto_partida->asignar_ciudad(ciudad_partida);
+	datos_aeropuerto_partida->asignar_pais(pais_partida);
 
-	//arbol->add(codigo, datos_aeropuerto);
+	datos_aeropuerto_destino->asignar_codigo_IATA(codigo_IATA_destino);
+	datos_aeropuerto_destino->asignar_nombre_aeropuerto(nombre_aeropuerto_destino);
+	datos_aeropuerto_destino->asignar_ciudad(ciudad_destino);
+	datos_aeropuerto_destino->asignar_pais(pais_destino);
+
+	int indice_partida = grafo.obtener_indice(codigo_IATA_partida);
+	if (indice_partida == -1) // Si no existe el aeropuerto
+		indice_partida = grafo.agregar_aeropuerto(datos_aeropuerto_partida);
+	else
+		delete datos_aeropuerto_partida;
+
+	int indice_destino = grafo.obtener_indice(codigo_IATA_destino);
+	if (indice_destino == -1) // Si no existe el aeropuerto
+		indice_destino = grafo.agregar_aeropuerto(datos_aeropuerto_destino);
+	else
+		delete datos_aeropuerto_destino;
+
+  grafo.agregar_viaje(indice_partida, indice_destino, costo_vuelo);
 
 }
 
 
-void cargar_grafo(/*BST* arbol*/) {
+void cargar_grafo(Grafo &grafo) {
 
 	ifstream archivo;
 	string linea_leida;
@@ -167,7 +194,7 @@ void cargar_grafo(/*BST* arbol*/) {
 
 	while(!(archivo.eof())) {
 
-		pasar_datos(linea_leida/*, grafo*/);
+		pasar_datos(grafo, linea_leida);
 		getline(archivo, linea_leida);
 
 
@@ -181,8 +208,9 @@ void mostrar_menu() {
 
 	cout << endl << endl << "           Menu de viajes 🛫       "<< endl << endl;
 	cout << "  ①  Consultar viajes con codigos IATA" << endl;
-	cout << "  ②  Listar convinaciones" << endl;
-	cout << "  ③  Salir" << endl;
+	cout << "  ②  Listar vuelos" << endl;
+	cout << "  ③  Listar aeropuertos" << endl;
+	cout << "  ④  Salir" << endl;
 
 }
 
@@ -203,7 +231,7 @@ int pedir_opcion() {
 
 	if (opcion_pedida < MINIMO_NUMERO_MENU || opcion_pedida > MAXIMO_NUMERO_MENU) {
 
-		cout << " Por favor ingrese un numero entre 1 y 5" << endl;
+		cout << " Por favor ingrese un numero entre " << MINIMO_NUMERO_MENU << " y " << MAXIMO_NUMERO_MENU << endl;
 		return pedir_opcion();
 
 	}
