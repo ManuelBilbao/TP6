@@ -4,27 +4,30 @@
 #include <list>
 #include <string>
 #include "aeropuerto.h"
-#include "vertice.h"
 
 const int MAX = 200;
-const int VERTICES = 8;
 
 using namespace std;
 
-#define Arista pair<int, int>
+#define Viaje pair<int, int>
 
 class Grafo {
 	private:
 		int cantidad;
-		list<Arista> vecino[MAX];
-		Vertice vertice[MAX];
+		list<Viaje> viajes[MAX];
+		Aeropuerto* aeropuerto[MAX];
 
 	public:
 		Grafo();
 		int obtener_cantidad();
-		list<Arista> obtener_vecino(int i);
-		Vertice obtener_vertice(int i);
+		list<Viaje> obtener_viajes(int indice);
+		Aeropuerto* obtener_aeropuerto(int indice);
+		int obtener_indice(string iata);
+		void agregar_viaje(int origen, int destino, int peso);
+		int agregar_aeropuerto(Aeropuerto* aeropuerto);
 		void mostrar();
+		void mostrar_aeropuertos();
+		~Grafo();
 };
 
 #endif

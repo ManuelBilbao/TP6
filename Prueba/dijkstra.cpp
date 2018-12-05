@@ -33,9 +33,9 @@ bool faltan_visitar(bool visitado[], int cantidad) {
 	return (i != cantidad);
 }
 
-void actualizar_vecinos(Grafo grafo, int index, int costo[], bool visitado[], int previo[]) {
-	list<Arista> vecinos = grafo.obtener_vecino(index);
-	for (list<Arista>::iterator it = vecinos.begin(); it != vecinos.end(); it++) {
+void actualizar_vecinos(Grafo &grafo, int index, int costo[], bool visitado[], int previo[]) {
+	list<Viaje> vecinos = grafo.obtener_viajes(index);
+	for (list<Viaje>::iterator it = vecinos.begin(); it != vecinos.end(); it++) {
 		if (!visitado[it->first]) {
 			if (costo[index] + it->second < costo[it->first]) {
 				costo[it->first] = costo[index] + it->second;
@@ -45,29 +45,28 @@ void actualizar_vecinos(Grafo grafo, int index, int costo[], bool visitado[], in
 	}
 }
 
-void mostrar_pasos(int previo[], int cantidad, int destino) {
+void mostrar_pasos(Grafo &grafo, int costo[], int previo[], int cantidad, int destino) {
 	int i = previo[destino];
+	cout << "Partida  Llegada  Precio" << endl;
 	if (i == -1) {
-		cout << destino << endl;
+		cout << grafo.obtener_aeropuerto(destino)->obtener_codigo_IATA() << " $" << costo[destino] << endl;
 		return;
 	}
 
-	cout << destino << ", ";
+	cout << "  " << grafo.obtener_aeropuerto(i)->obtener_codigo_IATA() << "      " << grafo.obtener_aeropuerto(destino)->obtener_codigo_IATA() << "    " << " $" << costo[destino] - costo[i] << endl;
 	while (previo[i] != -1) {
-		cout << i << ", ";
+		cout << "  " << grafo.obtener_aeropuerto(previo[i])->obtener_codigo_IATA() << "      " << grafo.obtener_aeropuerto(i)->obtener_codigo_IATA() << "    " << " $" << costo[i] - costo[previo[i]] << endl;
 		i = previo[i];
 	}
-	cout << i;
-	cout << endl;
 }
 
-int buscar_menor_camino(Grafo grafo, int inicio, int destino) {
+int buscar_menor_camino(Grafo &grafo, int inicio, int destino) {
 	int cantidad = grafo.obtener_cantidad();
 
 	int costo[cantidad]; // Costo que requiere llegar a cada vertice
 	bool visitado[cantidad]; // Si ya me "pare" sobre este vertice
 	int previo[cantidad]; // Por que vertice hay que pasar antes
-	
+
 	inicializar(costo, INF, cantidad);
 	inicializar(visitado, false, cantidad);
 	inicializar(previo, -1, cantidad);
@@ -83,11 +82,10 @@ int buscar_menor_camino(Grafo grafo, int inicio, int destino) {
 		sigue = (faltan_visitar(visitado, cantidad)) && (vertice_actual != -1) && (!visitado[destino]);
 	}
 
-	
-	if (costo[destino] == INF) {	
+	if (costo[destino] == INF) {
 		return -1;
 	}
 
-	mostrar_pasos(previo, cantidad, destino);
+	mostrar_pasos(grafo, costo, previo, cantidad, destino);
 	return costo[destino];
 }

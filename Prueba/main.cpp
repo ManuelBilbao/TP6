@@ -1,25 +1,37 @@
+#include <iostream>
+#include <string>
 #include "grafo.h"
 #include "dijkstra.h"
-#include <iostream>
+#include "operaciones.h"
 
 using namespace std;
 
+
 int main() {
 	Grafo grafo = Grafo();
-	int inicio;
-	int destino;
-	
-	cout << "Inicio: ";
-	cin >> inicio;
-	cout << "Destino: ";
-	cin >> destino;
 
-	int costo = buscar_menor_camino(grafo, inicio, destino);
-	
-	if (costo == -1)
-		cout << endl << "El destino es inaccesible" << endl;
-	else
-		cout << endl << "Costo a destino: " << costo << endl;
+	cargar_grafo(grafo);
+	system("clear");
+
+	bool sigue_programa = true;
+	while (sigue_programa) {
+		mostrar_menu();
+		int opcion_pedida = pedir_opcion();
+
+		switch (opcion_pedida) {
+			case 1:
+				consultar_viaje(grafo);
+				break;
+			case 2:
+				listar_combinaciones(grafo);
+				break;
+			case 3:
+				grafo.mostrar_aeropuertos();
+				break;
+			default:
+				sigue_programa = false;
+		}
+	}
 
 	return 0;
 }
